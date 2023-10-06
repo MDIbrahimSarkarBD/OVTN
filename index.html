@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Video Track Change Example</title>
+</head>
+<body>
+    <video id="myVideo" width="320" height="240" controls>
+        <source src="./video/video.mp4" type="video/mp4">
+        <track label="English" kind="subtitles" srclang="en" src="captions_en.vtt" default>
+        <track label="Spanish" kind="subtitles" srclang="es" src="captions_es.vtt">
+    </video>
+
+    <script>
+        const video = document.getElementById("myVideo");
+        const textTracks = video.textTracks;
+
+        // Add an event listener for the cuechange event
+        textTracks[0].addEventListener("cuechange", function() {
+            const activeCues = this.activeCues;
+console.log('sdf');
+
+            if (activeCues.length > 0) {
+                // Display the active cue(s) or perform some other action
+                const cueText = activeCues[0].text;
+                console.log("Active cue: " + cueText);
+
+                // You can perform other actions here based on the active cue
+                // For example, trigger some function or change the UI.
+            } else {
+                // There are no active cues
+                console.log("No active cues");
+            }
+        });
+
+        // Function to change the active track
+        function changeTrack(index) {
+            textTracks[index].mode = "showing"; // Change the mode to "showing" to make it active
+        }
+
+        // Example: Change the track to the Spanish subtitles track (index 1)
+        setTimeout(function() {
+            changeTrack(1);
+        }, 5000); // Change track after 5 seconds
+    </script>
+</body>
+</html>
